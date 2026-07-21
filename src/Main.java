@@ -1,24 +1,62 @@
 import model.Student;
+import service.GradeManager;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        int[] marks = {85, 90, 78, 92, 88};
+        GradeManager manager = new GradeManager();
 
-        Student student = new Student(
+        int[] marks1 = {90, 88, 95, 91, 87};
+
+        Student student1 = new Student(
                 "Gaurav",
                 "101",
-                marks
+                marks1
         );
 
-        System.out.println("Name : " + student.getName());
-        System.out.println("Roll : " + student.getRollNo());
+        manager.addStudent(student1);
 
-        System.out.print("Marks : ");
+        int[] marks2 = {80, 75, 82, 90, 88};
 
-        for (int mark : student.getMarks()) {
-            System.out.print(mark + " ");
+        Student student2 = new Student(
+                "Rahul",
+                "102",
+                marks2
+        );
+
+        manager.addStudent(student2);
+
+        System.out.println("Total Students : " + manager.getAllStudents().size());
+
+        Student found = manager.searchStudent("101");
+
+        if (found != null) {
+
+            System.out.println();
+
+            System.out.println("Student Found");
+
+            System.out.println("Name : " + found.getName());
+
+            System.out.println("Roll No : " + found.getRollNo());
+
+            System.out.print("Marks : ");
+
+            for (int mark : found.getMarks()) {
+                System.out.print(mark + " ");
+            }
+
+            System.out.println();
         }
+
+        boolean removed = manager.removeStudent("102");
+
+        if (removed) {
+            System.out.println("\nStudent Removed Successfully");
+        }
+
+        System.out.println("Remaining Students : " + manager.getAllStudents().size());
+
     }
 }
