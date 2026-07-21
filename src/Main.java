@@ -1,62 +1,47 @@
 import model.Student;
 import service.GradeManager;
+import utils.GradeCalculator;
 
 public class Main {
-
     public static void main(String[] args) {
 
         GradeManager manager = new GradeManager();
 
-        int[] marks1 = {90, 88, 95, 91, 87};
+        int[] marks = {90, 88, 95, 91, 87};
 
-        Student student1 = new Student(
+        Student student = new Student(
                 "Gaurav",
                 "101",
-                marks1
+                marks
         );
 
-        manager.addStudent(student1);
-
-        int[] marks2 = {80, 75, 82, 90, 88};
-
-        Student student2 = new Student(
-                "Rahul",
-                "102",
-                marks2
-        );
-
-        manager.addStudent(student2);
-
-        System.out.println("Total Students : " + manager.getAllStudents().size());
+        manager.addStudent(student);
 
         Student found = manager.searchStudent("101");
 
         if (found != null) {
 
-            System.out.println();
-
-            System.out.println("Student Found");
-
             System.out.println("Name : " + found.getName());
 
             System.out.println("Roll No : " + found.getRollNo());
 
-            System.out.print("Marks : ");
+            System.out.println("Total : "
+                    + GradeCalculator.calculateTotal(found));
 
-            for (int mark : found.getMarks()) {
-                System.out.print(mark + " ");
-            }
+            System.out.println("Average : "
+                    + GradeCalculator.calculateAverage(found));
 
-            System.out.println();
+            System.out.println("Highest : "
+                    + GradeCalculator.calculateHighest(found));
+
+            System.out.println("Lowest : "
+                    + GradeCalculator.calculateLowest(found));
+
+            System.out.println("Grade : "
+                    + GradeCalculator.calculateGrade(found));
+
+            System.out.println("Pass : "
+                    + GradeCalculator.isPass(found));
         }
-
-        boolean removed = manager.removeStudent("102");
-
-        if (removed) {
-            System.out.println("\nStudent Removed Successfully");
-        }
-
-        System.out.println("Remaining Students : " + manager.getAllStudents().size());
-
     }
 }
